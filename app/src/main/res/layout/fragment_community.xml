@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 商品名称 -->
+    <EditText
+        android:id="@+id/etProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品名称"
+        android:padding="16dp"/>
+
+    <!-- 商品描述 -->
+    <EditText
+        android:id="@+id/etProductDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品描述"
+        android:padding="16dp"
+        android:layout_below="@id/etProductName"
+        android:layout_marginTop="8dp"/>
+
+    <!-- 商品价格 -->
+    <EditText
+        android:id="@+id/etProductPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品价格"
+        android:inputType="numberDecimal"
+        android:padding="16dp"
+        android:layout_below="@id/etProductDescription"
+        android:layout_marginTop="8dp"/>
+
+    <!-- 商品位置 -->
+    <EditText
+        android:id="@+id/etProductLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="商品位置"
+        android:padding="16dp"
+        android:layout_below="@id/etProductPrice"
+        android:layout_marginTop="8dp"/>
+
+    <!-- 上传商品图片按钮 -->
+    <Button
+        android:id="@+id/btnUploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上传图片"
+        android:layout_below="@id/etProductLocation"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- 展示已上传的图片 -->
+    <ImageView
+        android:id="@+id/ivProductImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@id/btnUploadImage"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- 显示图片编号 -->
+    <TextView
+        android:id="@+id/tvImageNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnUploadImage"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"/>
+
+    <!-- 发布按钮 -->
+    <Button
+        android:id="@+id/btnPublish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发布"
+        android:layout_below="@id/ivProductImage"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>

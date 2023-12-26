@@ -6,26 +6,21 @@ import java.util.Objects;
 /**
  * 商品实体类
  */
-public class Goods implements Serializable {
+public class GoodsOPT implements Serializable {
 
     private String name, description,location,image,type;
-    private int number,id;
     private double price;
-    public Boolean isSelected = false;
 
-    public Goods() {
+    public GoodsOPT() {
     }
 
-    public Goods(int id,String name, String description, String location, String image, int number, double price, Boolean isSelected,String type) {
-        this.id = id;
+    public GoodsOPT(String name, String description, String location, String image,double price,String type) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.image = image;
-        this.number = number;
         this.price = price;
-        this.isSelected = isSelected;
-        this.type =type;
+        this.type = type;
     }
 
     public String getName() {
@@ -60,20 +55,7 @@ public class Goods implements Serializable {
         this.image = image;
     }
 
-    public int getNumber() {
-        return number;
-    }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     public double getPrice() {
         return price;
     }
@@ -81,15 +63,6 @@ public class Goods implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public Boolean getSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(Boolean selected) {
-        isSelected = selected;
-    }
-
     public String getType() {
         return type;
     }
@@ -100,15 +73,12 @@ public class Goods implements Serializable {
     @Override
     public String toString() {
         return "Goods{" +
-                "id='" + id + '\'' +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
-                ", image='" + image + '\'' +
-                ", number=" + number +
-                ", type=" + type +
-                ", price=" + price +
-                ", isSelected=" + isSelected +
+                ", image='" + image + '\''   +
+                ", price=" +  price +  '\''   +
+                ", type=" +   type +
                 '}';
     }
 }

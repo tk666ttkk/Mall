@@ -1,7 +1,6 @@
 package pers.ervinse.shoppingmall;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import pers.ervinse.shoppingmall.Comment.Activity.CommentActivity;
 import pers.ervinse.shoppingmall.domain.Goods;
 import pers.ervinse.shoppingmall.utils.OkhttpUtils;
 import pers.ervinse.shoppingmall.utils.PropertiesUtils;
@@ -25,7 +27,7 @@ import pers.ervinse.shoppingmall.utils.PropertiesUtils;
 /**
  * 商品详情页面
  */
-public class GoodsInfoActivity extends Activity {
+public class GoodsInfoActivity extends AppCompatActivity {
 
     private static final String TAG = GoodsInfoActivity.class.getSimpleName();
     private Goods goods;
@@ -33,9 +35,9 @@ public class GoodsInfoActivity extends Activity {
 
     //返回按钮,商品图片
     private ImageView good_info_back_btn,goods_image;
-    private TextView goods_name_tv,goods_price_tv,goods_description_tv,goods_location_tv;
+    private TextView goods_name_tv,goods_price_tv,goods_description_tv,goods_location_tv,getGoods_type_tv,good_id_tv;
     //添加到购物车按钮
-    private Button good_info_add_cart_btn;
+    private Button good_info_add_cart_btn,goods_like_tv;
 
     /**
      * 创建视图
@@ -49,12 +51,14 @@ public class GoodsInfoActivity extends Activity {
 
         good_info_back_btn = findViewById(R.id.good_info_back_btn);
         goods_name_tv = findViewById(R.id.goods_name_tv);
-        goods_price_tv = findViewById(R.id.goods_price_tv);
+        goods_price_tv = findViewById(R.id.dollar_tv);
         goods_description_tv = findViewById(R.id.goods_description_tv);
         goods_location_tv = findViewById(R.id.goods_location_tv);
+        getGoods_type_tv = findViewById(R.id.goods_type);
         good_info_add_cart_btn = findViewById(R.id.good_info_add_cart_btn);
         goods_image = findViewById(R.id.goods_image);
-
+        goods_like_tv = findViewById(R.id.goods_like_tv);
+        good_id_tv = findViewById(R.id.id_tv);
 
         good_info_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +66,16 @@ public class GoodsInfoActivity extends Activity {
                 finish();
             }
         });
+
+        goods_like_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+                public void onClick(View view) {
+                Intent intent = new Intent(GoodsInfoActivity.this, CommentActivity.class);
+                intent.putExtra("productId", good_id_tv.getText()); // 传递商品ID等信息
+                startActivity(intent);
+            }
+        });
+
 
         good_info_add_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,10 +142,14 @@ public class GoodsInfoActivity extends Activity {
         goods_name_tv.setText(goods.getName());
         goods_price_tv.setText(String.valueOf(goods.getPrice()));
         goods_description_tv.setText(goods.getDescription());
+        good_id_tv.setText(String.valueOf(goods.getId()));
         goods_location_tv.setText(goods.getLocation());
+        getGoods_type_tv.setText(goods.getType());
 
         int id = mContext.getResources().getIdentifier(goods.getImage(), "drawable", mContext.getPackageName());
         goods_image.setImageResource(id);
 
     }
+
+
 }

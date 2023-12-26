@@ -10,18 +10,60 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#fff">
+        android:background="#FFEB3B"
+        android:elevation="4dp"> <!-- 添加阴影效果 -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="30dp"
             android:layout_weight="1"
             android:text="全部商品"
             android:textColor="#303235"
             android:textSize="20sp" />
     </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/category_btn_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlebar"
+        android:background="#fec901"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <RadioButton
+            android:id="@+id/category_cold_btn"
+            style="@style/HomeCategoryButtonStyle"
+            android:layout_height="80dp"
+            android:layout_margin="10px"
+            android:drawableTop="@drawable/category_meat"
+            android:text="肉蛋" />
+
+        <RadioButton
+            android:id="@+id/category_fruit_btn"
+            style="@style/HomeCategoryButtonStyle"
+            android:layout_height="80dp"
+            android:layout_margin="10px"
+            android:drawableTop="@drawable/category_fruit"
+            android:text="水果" />
+
+        <RadioButton
+            android:id="@+id/category_meat_btn"
+            style="@style/HomeCategoryButtonStyle"
+            android:layout_height="80dp"
+            android:layout_margin="10px"
+            android:drawableTop="@drawable/category_cold"
+            android:text="速食" />
+
+        <RadioButton
+            android:id="@+id/category_wine_btn"
+            style="@style/HomeCategoryButtonStyle"
+            android:layout_height="80dp"
+            android:layout_margin="10px"
+            android:drawableTop="@drawable/category_wine"
+            android:text="饮料" />
+    </RadioGroup>
 
     <!--分割线-->
     <View
@@ -34,6 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="-60dp"
-        />
+        android:elevation="8dp" /> <!-- 添加阴影效果 -->
 
 </LinearLayout>

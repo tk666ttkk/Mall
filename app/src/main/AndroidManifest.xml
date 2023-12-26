@@ -25,6 +25,9 @@
             android:name=".GoodsInfoActivity"
             android:exported="false" />
         <activity
+            android:name=".Comment.Activity.CommentActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

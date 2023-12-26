@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -38,8 +39,9 @@ public class TypeFragment extends BaseFragment {
     private TypeAdapter adapter;
 
     List<Goods> goodsList;
+    private Button btnC, btnF,btnM,btnW;
 
-
+    private String type;
     /**
      * 初始化视图
      * @return
@@ -49,7 +51,61 @@ public class TypeFragment extends BaseFragment {
         Log.i(TAG, "类别视图初始化");
         //为当前fragment加载布局文件
         View view = View.inflate(mContext, R.layout.fragment_type, null);
+
+        btnC = view.findViewById(R.id.category_cold_btn);
+        btnF = view.findViewById(R.id.category_fruit_btn);
+        btnM = view.findViewById(R.id.category_meat_btn);
+        btnW = view.findViewById(R.id.category_wine_btn);
         rv_type = view.findViewById(R.id.rv_type);
+
+
+        // 假设这是点击事件监听器
+        btnC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 获取商品类型
+                type = btnC.getText().toString(); // 你需要根据实际情况获取对应的商品类型
+
+                // 调用方法进行网络请求
+                refreshData();
+            }
+        });
+
+        // 假设这是点击事件监听器
+        btnM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 获取商品类型
+                type = btnM.getText().toString(); // 你需要根据实际情况获取对应的商品类型
+
+                // 调用方法进行网络请求
+                refreshData();
+            }
+        });
+        // 假设这是点击事件监听器
+        btnW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 获取商品类型
+                type = btnW.getText().toString(); // 你需要根据实际情况获取对应的商品类型
+
+                // 调用方法进行网络请求
+                refreshData();
+            }
+        });
+        // 假设这是点击事件监听器
+        btnF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 获取商品类型
+                type = btnF.getText().toString(); // 你需要根据实际情况获取对应的商品类型
+
+                // 调用方法进行网络请求
+                refreshData();
+            }
+        });
+
+
         return view;
     }
 
@@ -121,7 +177,7 @@ public class TypeFragment extends BaseFragment {
                 try {
                     //发送获取商品请求
                     String url = PropertiesUtils.getUrl(mContext);
-                    responseJson = OkhttpUtils.doGet(url + "/goods");
+                    responseJson = OkhttpUtils.doGet(url + "/goods/getByType?type=" + type);
                     Log.i(TAG, "获取商品响应json:" + responseJson);
                     goodsList = gson.fromJson(responseJson, new TypeToken<List<Goods>>() {
                     }.getType());

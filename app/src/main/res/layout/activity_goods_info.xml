@@ -52,6 +52,8 @@
         android:src="@drawable/item_example" />
 
     <!--商品名称和价格-->
+
+    <!--商品描述-->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -69,39 +71,47 @@
             android:textStyle="bold" />
 
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp">
 
-            <TextView
-                android:id="@+id/dollar_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="价格: ￥"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:textColor="#AE5259"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/goods_price_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="100"
-                android:textSize="18dp"
-                android:textColor="#AE5259"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/dollar_tv"
-                app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/id_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="id"
+            android:textColor="#AE5259"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dollar_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="价格: ￥"
+            android:textColor="#AE5259"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/goods_type"
+            android:layout_width="257dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="种类: "
+            android:textColor="#AE5259"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
-    <!--商品描述-->
     <TextView
         android:id="@+id/goods_description_tv"
         android:layout_width="match_parent"
@@ -160,7 +170,7 @@
             android:text="联系客服"
             android:textColor="#393b3e" />
 
-        <TextView
+        <Button
             android:id="@+id/goods_like_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -169,8 +179,7 @@
             android:drawablePadding="5dp"
             android:gravity="center"
             android:padding="2dp"
-            android:text="收藏"
-            android:textColor="#393b3e" />
+            android:text="评论" />
 
 
         <TextView
@@ -195,6 +204,5 @@
             android:text="加入购物车"
             android:textColor="#fff" />
     </LinearLayout>
-
 
 </LinearLayout>

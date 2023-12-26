@@ -14,8 +14,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     private List<Comment> commentList;
 
+    public CommentAdapter() {
+
+    }
     public CommentAdapter(List<Comment> commentList) {
         this.commentList = commentList;
+    }
+
+    public void setCommentList(List<Comment> comments) {
+        this.commentList = comments;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -29,6 +37,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         Comment comment = commentList.get(position);
         holder.usernameTextView.setText(String.valueOf(comment.getUserId()));
         holder.commentTextView.setText(String.valueOf(comment.getCommentText()));
+        holder.timeTextView.setText(String.valueOf(comment.getTimestamp()));
     }
 
     @Override
@@ -39,11 +48,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         public TextView usernameTextView;
         public TextView commentTextView;
+        public TextView timeTextView;
 
         public CommentViewHolder(View itemView) {
             super(itemView);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
             commentTextView = itemView.findViewById(R.id.commentTextView);
+            timeTextView = itemView.findViewById(R.id.timeTextView);
         }
     }
 }

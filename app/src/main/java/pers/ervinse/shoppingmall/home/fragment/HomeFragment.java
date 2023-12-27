@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class HomeFragment extends BaseFragment {
     private Handler handler = new Handler();
 
     private RecyclerView rvHome;
-    private ImageView ib_top;
+    private ImageView ib_top,iv_search;
     private TextView tv_search_home;
     private TextView tv_message_home;
 
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseFragment {
 
     List<Goods> goodsList;
 
-
+    Goods goods;
 
     /**
      * 初始化视图
@@ -59,7 +60,71 @@ public class HomeFragment extends BaseFragment {
         rvHome = view.findViewById(R.id.rv_home);
         tv_search_home = view.findViewById(R.id.tv_search_home);
         tv_message_home = view.findViewById(R.id.tv_message_home);
+        iv_search = view.findViewById(R.id.iv_search);
+
+        iv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performSearch();
+            }
+        });
         return view;
+    }
+
+
+    // 在这里执行搜索功能，调用后端接口等
+    private void performSearch() {
+        // 获取搜索框中的内容
+        String searchText = tv_search_home.getText().toString();
+        Log.d(TAG, searchText);
+        // 调用后端接口，处理搜索逻辑
+        Log.i(TAG, "联网刷新数据");
+        new Thread() {
+            @Override
+            public void run() {
+                Log.i(TAG, "进入查询线程");
+
+                Gson gson = new Gson();
+                String responseJson = null;
+
+                try {
+                    //发送获取商品请求
+                    String url = PropertiesUtils.getUrl(mContext);
+                    responseJson = OkhttpUtils.doGet(url + "/goods/getByName?Username=" + searchText);
+                    if (!responseJson.isEmpty()){
+                        // 只有在响应成功时才解析 JSON
+                        Log.i(TAG, "获取商品响应json:" + responseJson);
+                        goodsList = gson.fromJson(responseJson, new TypeToken<List<Goods>>() {
+                        }.getType());
+                        Log.i(TAG, "获取商品响应解析对象:" + goods);
+                        //获取商品成功
+                        if (goodsList != null) {
+                            ////切回主线程调整布局
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //防止因为初始化未加载布局
+                                    if (adapter != null) {
+                                        //更新数据适配器中商品数据
+                                        adapter.setGoodsList(goodsList);
+                                        //刷新视图
+                                        adapter.flushView();
+                                    }
+                                }
+                            });
+                        }
+                    }else{
+                        Toast.makeText(mContext, "找不到该物品", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (IOException e) {
+                    e.printStackTrace();
+                    Looper.prepare();
+                    Toast.makeText(mContext, "获取数据失败,服务器错误", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+
+                }
+            }
+        }.start();
     }
 
     /**

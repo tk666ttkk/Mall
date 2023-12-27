@@ -10,14 +10,15 @@ public class Comment {
     private int id;
     private int userId;
     private int productId;
-    private String commentText;
+    private String commentText,userName;
     private Timestamp timestamp;
 
-    public Comment(int id, int userId, int productId, String commentText, Timestamp timestamp) {
+    public Comment(int id, int userId, int productId, String commentText,String userName, Timestamp timestamp) {
         this.id = id;
         this.userId = userId;
         this.productId = productId;
         this.commentText = commentText;
+        this.userName = userName;
         this.timestamp = timestamp;
     }
 
@@ -27,6 +28,15 @@ public class Comment {
         this.productId = productId;
         this.commentText = commentText;
     }
+
+    public Comment( int userId, int productId, String userName,String commentText) {
+
+        this.userId = userId;
+        this.productId = productId;
+        this.userName =  userName;
+        this.commentText = commentText;
+    }
+
     public Comment() {
     }
 
@@ -48,6 +58,13 @@ public class Comment {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+    public void setUserName(String userName) {
+       this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public void setId(int id) {

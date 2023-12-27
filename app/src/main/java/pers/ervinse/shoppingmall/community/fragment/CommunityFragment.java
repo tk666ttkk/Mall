@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ import pers.ervinse.shoppingmall.BaseFragment;
 import pers.ervinse.shoppingmall.R;
 import pers.ervinse.shoppingmall.domain.Goods;
 import pers.ervinse.shoppingmall.domain.GoodsOPT;
+import pers.ervinse.shoppingmall.domain.User;
 import pers.ervinse.shoppingmall.utils.OkhttpUtils;
 import pers.ervinse.shoppingmall.utils.PropertiesUtils;
 
@@ -82,24 +84,31 @@ public class CommunityFragment extends BaseFragment {
              btnPublish.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // 获取用户输入的物品信息
-                    String name = editTextName.getText().toString();
-                    String description = editTextDescription.getText().toString();
-                    String priceStr = editTextPrice.getText().toString();
-                    String location = editTextLocation.getText().toString();
-                    String imgnumber = tvImageNumber.getText().toString();
-                    String type = editTextType.getText().toString();
+                    User user = User.getInstance();
+                    // 获取要删除评论的信息
+                    String userName = user.getName();
+                    if (user != null && !TextUtils.isEmpty(user.getName())) {
+                        // 获取用户输入的物品信息
+                        String name = editTextName.getText().toString();
+                        String description = editTextDescription.getText().toString();
+                        String priceStr = editTextPrice.getText().toString();
+                        String location = editTextLocation.getText().toString();
+                        String imgnumber = tvImageNumber.getText().toString();
+                        String type = editTextType.getText().toString();
 
-                    // 构建 Goods 对象
-                    GoodsOPT newGoods = new GoodsOPT(name, description,location,imgnumber,Double.parseDouble(priceStr),type);
+                        // 构建 Goods 对象
+                        GoodsOPT newGoods = new GoodsOPT(name, description, location, imgnumber, Double.parseDouble(priceStr), type);
 
-                    // 调用后端接口添加商品
-                    addGoodsToDatabase(newGoods);
+                        // 调用后端接口添加商品
+                        addGoodsToDatabase(newGoods);
 
-                    clearData();
+                        clearData();
+                    } else {
+                        Toast.makeText(mContext, "未登录不能发布", Toast.LENGTH_SHORT).show();
+                        clearData();
+                    }
                 }
             });
-
             return view;
     }
 

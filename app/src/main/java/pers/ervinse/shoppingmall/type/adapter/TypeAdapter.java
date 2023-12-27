@@ -3,6 +3,7 @@ package pers.ervinse.shoppingmall.type.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.util.List;
 import pers.ervinse.shoppingmall.GoodsInfoActivity;
 import pers.ervinse.shoppingmall.R;
 import pers.ervinse.shoppingmall.domain.Goods;
+import pers.ervinse.shoppingmall.domain.User;
 import pers.ervinse.shoppingmall.utils.OkhttpUtils;
 import pers.ervinse.shoppingmall.utils.PropertiesUtils;
 
@@ -119,7 +121,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
             item_add_cart_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    User user = User.getInstance();
+                    // 获取要删除评论的信息
+                    String userName = user.getName();
+                    if (user != null && !TextUtils.isEmpty(user.getName())) {
                     new Thread() {
                         @Override
                         public void run() {
@@ -163,6 +168,9 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
                             }
                         }
                     }.start();
+                }else {
+                        Toast.makeText(mContext, "未登录不能添加", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

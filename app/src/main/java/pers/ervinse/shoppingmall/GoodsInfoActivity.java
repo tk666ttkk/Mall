@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import java.io.IOException;
 
 import pers.ervinse.shoppingmall.Comment.Activity.CommentActivity;
 import pers.ervinse.shoppingmall.domain.Goods;
+import pers.ervinse.shoppingmall.domain.User;
 import pers.ervinse.shoppingmall.utils.OkhttpUtils;
 import pers.ervinse.shoppingmall.utils.PropertiesUtils;
 
@@ -80,49 +82,56 @@ public class GoodsInfoActivity extends AppCompatActivity {
         good_info_add_cart_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Log.i(TAG, "进入获取商品线程");
+                User user = User.getInstance();
+                // 获取要删除评论的信息
+                String userName = user.getName();
+                if (user != null && !TextUtils.isEmpty(user.getName())) {
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            Log.i(TAG, "进入获取商品线程");
 
-                        Gson gson = new Gson();
-                        String responseJson = null;
+                            Gson gson = new Gson();
+                            String responseJson = null;
 
-                        //获取当前商品信息
-                        Goods goodsForAdd = new Goods();
-                        goodsForAdd.setName(goods.getName());
-                        String goodsJson = gson.toJson(goodsForAdd);
-                        try {
-                            //发送添加到购物车请求
-                            String url = PropertiesUtils.getUrl(mContext);
-                            responseJson = OkhttpUtils.doPost(url + "/cart/addGoodsToCart",goodsJson);
-                            Log.i(TAG, "添加购物车商品响应json:" + responseJson);
-                            responseJson = gson.fromJson(responseJson, String.class);
-                            Log.i(TAG, "添加购物车商品响应解析对象:" + responseJson);
+                            //获取当前商品信息
+                            Goods goodsForAdd = new Goods();
+                            goodsForAdd.setName(goods.getName());
+                            String goodsJson = gson.toJson(goodsForAdd);
+                            try {
+                                //发送添加到购物车请求
+                                String url = PropertiesUtils.getUrl(mContext);
+                                responseJson = OkhttpUtils.doPost(url + "/cart/addGoodsToCart", goodsJson);
+                                Log.i(TAG, "添加购物车商品响应json:" + responseJson);
+                                responseJson = gson.fromJson(responseJson, String.class);
+                                Log.i(TAG, "添加购物车商品响应解析对象:" + responseJson);
 
-                            if (responseJson != null) {
-                                //添加购物车成功
-                                if (responseJson.equals("true")){
-                                    Looper.prepare();
-                                    Toast.makeText(mContext, "商品已添加到购物车", Toast.LENGTH_SHORT).show();
-                                    Looper.loop();
-                                //添加购物车失败,商品已经在购物车
-                                }else {
-                                    Looper.prepare();
-                                    Toast.makeText(mContext, "商品已经在购物车啦", Toast.LENGTH_SHORT).show();
-                                    Looper.loop();
+                                if (responseJson != null) {
+                                    //添加购物车成功
+                                    if (responseJson.equals("true")) {
+                                        Looper.prepare();
+                                        Toast.makeText(mContext, "商品已添加到购物车", Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
+                                        //添加购物车失败,商品已经在购物车
+                                    } else {
+                                        Looper.prepare();
+                                        Toast.makeText(mContext, "商品已经在购物车啦", Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
+                                    }
                                 }
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Looper.prepare();
+                                Toast.makeText(mContext, "获取数据失败,服务器错误", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
                             }
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Looper.prepare();
-                            Toast.makeText(mContext, "获取数据失败,服务器错误", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
                         }
-
-                    }
-                }.start();
+                    }.start();
+                } else {
+                    Toast.makeText(mContext, "未登录不能添加购物车", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

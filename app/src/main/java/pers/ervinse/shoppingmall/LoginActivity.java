@@ -112,31 +112,48 @@ public class LoginActivity extends Activity {
                     Log.i(TAG, "登录请求响应json:" + responseJson);
                     responseJson = gson.fromJson(responseJson,String.class);
                     Log.i(TAG, "登录请求响应解析数据:" + responseJson);
-                    if (responseJson != null){
-                        //登录成功
-                        if (responseJson.equals("true")){
-                            //发送请求获取当前用户名对应的简介
+                    // 在登录成功的地方设置用户信息
+                    if (responseJson != null) {
+                        // 登录成功
+                        if (responseJson.equals("true")) {
+                            // 发送请求获取当前用户名对应的简介
                             responseJson = OkhttpUtils.doGet(url + "/users/getDescription/" + userName);
                             Log.i(TAG, "获取描述请求响应json:" + responseJson);
                             userDesc = gson.fromJson(responseJson, String.class);
                             Log.i(TAG, "获取描述请求响应解析数据:" + userDesc);
-                            //回传用户名和简介
+
+                            // 在登录成功时设置用户信息
+                            User user1 = User.getInstance();
+                            int num = 1;
+                            if(userName.equals("EE")){
+                                user1.setId(1);
+                            }
+                            if(userName.equals("AA")){
+                                user1.setId(2);
+                            }
+                            if(userName.equals("BB")){
+                                user1.setId(3);
+                            }
+                            user1.setName(userName);
+                            user1.setDescription(userDesc);
+
+                            // 回传用户名和简介
                             Intent intent = new Intent();
                             intent.putExtra("userName", userName);
                             intent.putExtra("userDesc", userDesc);
-                            //设置数据状态
+                            // 设置数据状态
                             setResult(RESULT_OK, intent);
-                            //销毁当前方法
+                            // 销毁当前方法
                             finish();
-                        }else {
-                            //登录失败
-                            //子线程中准备Toast
+                        } else {
+                            // 登录失败
+                            // 子线程中准备Toast
                             Looper.prepare();
                             Toast.makeText(mContext, "登录失败,用户名或密码错误", Toast.LENGTH_SHORT).show();
                             Looper.loop();
                         }
                     }
-                //抛出异常
+                    //抛出异常
                 } catch (IOException e) {
                     e.printStackTrace();
                     Looper.prepare();

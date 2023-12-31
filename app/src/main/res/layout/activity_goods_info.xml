@@ -90,6 +90,16 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/username_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="用户名"
+            android:textColor="#AE5259"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/dollar_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -65,6 +65,7 @@ public class CommunityFragment extends BaseFragment {
             btCancle= view.findViewById(R.id.btnCancel);
             editTextType = view.findViewById(R.id.etProductType);
 
+
             //上传图片
         btnUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,9 +96,8 @@ public class CommunityFragment extends BaseFragment {
                         String location = editTextLocation.getText().toString();
                         String imgnumber = tvImageNumber.getText().toString();
                         String type = editTextType.getText().toString();
-
                         // 构建 Goods 对象
-                        GoodsOPT newGoods = new GoodsOPT(name, description, location, imgnumber, Double.parseDouble(priceStr), type);
+                        GoodsOPT newGoods = new GoodsOPT(name, description, location, imgnumber, Double.parseDouble(priceStr), type,userName);
 
                         // 调用后端接口添加商品
                         addGoodsToDatabase(newGoods);

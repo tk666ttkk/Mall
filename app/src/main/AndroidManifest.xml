@@ -27,6 +27,9 @@
         <activity
             android:name=".Comment.Activity.CommentActivity"
             android:exported="false" />
+        <activity android:name="pers.ervinse.shoppingmall.mygoods.MyGoodsActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

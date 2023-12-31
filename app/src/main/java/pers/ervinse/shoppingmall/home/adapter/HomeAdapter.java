@@ -157,7 +157,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                             public void run() {
                                 Log.i(TAG, "进入添加购物车线程");
 
-
                                 Gson gson = new Gson();
                                 String responseJson = null;
 

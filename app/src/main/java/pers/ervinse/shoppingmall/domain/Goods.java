@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Goods implements Serializable {
 
-    private String name, description,location,image,type;
+    private String name, description,location,image,type,username;
     private int number,id;
     private double price;
     public Boolean isSelected = false;
@@ -16,7 +16,7 @@ public class Goods implements Serializable {
     public Goods() {
     }
 
-    public Goods(int id,String name, String description, String location, String image, int number, double price, Boolean isSelected,String type) {
+    public Goods(int id,String name, String description, String location, String image, int number, double price, Boolean isSelected,String type,String username) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,15 +26,30 @@ public class Goods implements Serializable {
         this.price = price;
         this.isSelected = isSelected;
         this.type =type;
+        this.username = username;
     }
 
-    public String getName() {
-        return name;
+    public Goods(String name, String description,double price,String image) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.price = price;
     }
+
+    public String getuserName() {
+            return username;
+        }
+        public void setuserName(String username) {
+            this.username = username;
+        }
 
     public void setName(String name) {
         this.name = name;
     }
+    public String getName() {
+        return name;
+    }
+
 
     public String getDescription() {
         return description;

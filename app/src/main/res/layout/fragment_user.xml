@@ -145,12 +145,13 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
+        <Button
+            android:id="@+id/mygoods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:paddingLeft="30dp"
-            android:text="用户信息"
+            android:text="我的商品"
             android:textColor="#555"
             android:textSize="16dp" />
 

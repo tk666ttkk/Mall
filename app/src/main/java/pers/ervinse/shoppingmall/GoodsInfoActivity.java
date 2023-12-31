@@ -37,7 +37,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
 
     //返回按钮,商品图片
     private ImageView good_info_back_btn,goods_image;
-    private TextView goods_name_tv,goods_price_tv,goods_description_tv,goods_location_tv,getGoods_type_tv,good_id_tv;
+    private TextView goods_name_tv,goods_price_tv,goods_description_tv,goods_location_tv,getGoods_type_tv,good_id_tv,editTextuserName;
     //添加到购物车按钮
     private Button good_info_add_cart_btn,goods_like_tv;
 
@@ -61,6 +61,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
         goods_image = findViewById(R.id.goods_image);
         goods_like_tv = findViewById(R.id.goods_like_tv);
         good_id_tv = findViewById(R.id.id_tv);
+        editTextuserName = findViewById(R.id.username_tv);
 
         good_info_back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,21 +145,27 @@ public class GoodsInfoActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        //加载商品数据
+        // 加载商品数据
         Intent intent = getIntent();
-        goods = (Goods)intent.getSerializableExtra("goods");
+        if (intent.hasExtra("goods")) {
+            goods = (Goods) intent.getSerializableExtra("goods");
+        } else if (intent.hasExtra("mygoods")) {
+            goods = (Goods) intent.getSerializableExtra("mygoods");
+        }
 
-        goods_name_tv.setText(goods.getName());
-        goods_price_tv.setText(String.valueOf(goods.getPrice()));
-        goods_description_tv.setText(goods.getDescription());
-        good_id_tv.setText(String.valueOf(goods.getId()));
-        goods_location_tv.setText(goods.getLocation());
-        getGoods_type_tv.setText(goods.getType());
+        if (goods != null) {
+            // 设置商品信息到视图
+            goods_name_tv.setText(goods.getName());
+            goods_price_tv.setText(String.valueOf(goods.getPrice()));
+            goods_description_tv.setText(goods.getDescription());
+            good_id_tv.setText(String.valueOf(goods.getId()));
+            goods_location_tv.setText(goods.getLocation());
+            getGoods_type_tv.setText(goods.getType());
+            editTextuserName.setText(goods.getuserName());
 
-        int id = mContext.getResources().getIdentifier(goods.getImage(), "drawable", mContext.getPackageName());
-        goods_image.setImageResource(id);
-
+            int id = mContext.getResources().getIdentifier(goods.getImage(), "drawable", mContext.getPackageName());
+            goods_image.setImageResource(id);
+        }
     }
-
 
 }

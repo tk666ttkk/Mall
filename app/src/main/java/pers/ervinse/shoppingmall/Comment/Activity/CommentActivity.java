@@ -235,7 +235,7 @@ public class CommentActivity extends AppCompatActivity {
                     // 处理网络请求异常，例如 Toast 提示
                     // 注意：在这里不能直接操作 UI，需要通过 Handler 在主线程中执行
                     // 例如：
-                    handler.post(new Runnable() {s
+                    handler.post(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(mContext, "网络请求失败，请检查网络连接", Toast.LENGTH_SHORT).show();

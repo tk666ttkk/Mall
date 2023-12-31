@@ -106,7 +106,6 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.TypeViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     //前往商品详情页面,并传入数据
                     Goods goodsByClick = goodsList.get(getLayoutPosition());
                     Intent intent = new Intent(mContext, GoodsInfoActivity.class);

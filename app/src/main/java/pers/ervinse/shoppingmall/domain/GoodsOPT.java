@@ -8,19 +8,28 @@ import java.util.Objects;
  */
 public class GoodsOPT implements Serializable {
 
-    private String name, description,location,image,type;
+    private String name, description,location,image,type,username;
     private double price;
 
     public GoodsOPT() {
     }
 
-    public GoodsOPT(String name, String description, String location, String image,double price,String type) {
+    public GoodsOPT(String name, String description, String location, String image,double price,String type,String username) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.image = image;
         this.price = price;
         this.type = type;
+        this.username = username;
+    }
+
+    public String getuserName() {
+        return username;
+    }
+
+    public void setuserName(String username) {
+        this.username = username;
     }
 
     public String getName() {

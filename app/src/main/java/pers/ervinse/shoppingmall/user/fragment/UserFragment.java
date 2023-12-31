@@ -22,6 +22,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import pers.ervinse.shoppingmall.BaseFragment;
 import pers.ervinse.shoppingmall.LoginActivity;
 import pers.ervinse.shoppingmall.R;
+import pers.ervinse.shoppingmall.mygoods.MyGoodsActivity;
 
 public class UserFragment extends BaseFragment {
 
@@ -33,7 +34,7 @@ public class UserFragment extends BaseFragment {
 
     private ImageView user_photo_image;
     private TextView user_name_tv, user_desc_tv;
-    private Button user_logout_btn;
+    private Button user_logout_btn,listmygoods;
     private View user_bar;
 
     private Bitmap bitmap;
@@ -53,6 +54,8 @@ public class UserFragment extends BaseFragment {
         user_desc_tv = view.findViewById(R.id.user_desc_tv);
         user_logout_btn = view.findViewById(R.id.user_logout_btn);
         user_bar = view.findViewById(R.id.user_bar);
+        listmygoods = view.findViewById(R.id.mygoods);
+        listmygoods.setOnClickListener(v -> openMyGoodsActivity());
 
         //获取用户头像控件,将其设置为圆角
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.item_example);
@@ -63,6 +66,11 @@ public class UserFragment extends BaseFragment {
 
 
         return view;
+    }
+
+    private void openMyGoodsActivity() {
+        Intent intent = new Intent(getActivity(), MyGoodsActivity.class);
+        startActivity(intent);
     }
 
     //初始化数据
